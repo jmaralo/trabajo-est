@@ -4,7 +4,7 @@ Trabajo para la asignatura de estadistica del grado de ingeneria informatica de 
 
 ## Autores
 
-* [Juan Martinez Alonso](github.com/jmaralo)
+* [Juan Martinez Alonso](https://github.com/jmaralo)
 * Alejandro Muñoz Zafra
 
 ## Acerca del trabajo
