@@ -10,8 +10,6 @@ TOKEN = "<<-- YOUR GITHUB TOKEN HERE -->>"
 OUTPUT_DIR = "preprocessing/output"
 OUTPUT_NAME = os.path.basename(__file__).replace(".py", ".csv")
 
-data = pd.read_csv("preprocessing/4_output/4_expand_numbers.csv")
-
 
 def get_topics(repo):
     print("Getting topics for {repo}".format(repo=repo))
@@ -35,7 +33,14 @@ def get_topics(repo):
         return []
 
 
-data["topics"] = data["repo_link"].apply(get_topics)
+def main(file="preprocessing/output/4_expand_numbers.csv"):
+    data = pd.read_csv(file)
 
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-data.to_csv(os.path.join(OUTPUT_DIR, OUTPUT_NAME), index=False)
+    data["topics"] = data["repo_link"].apply(get_topics)
+
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    data.to_csv(os.path.join(OUTPUT_DIR, OUTPUT_NAME), index=False)
+
+
+if __name__ == "__main__":
+    main()

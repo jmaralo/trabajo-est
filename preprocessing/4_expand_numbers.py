@@ -6,9 +6,6 @@ import os
 OUTPUT_DIR = "preprocessing/output"
 OUTPUT_NAME = os.path.basename(__file__).replace(".py", ".csv")
 
-data = pd.read_csv(
-    "preprocessing/output/3_remove_fields.csv", low_memory=False)
-
 
 def parse_number(number):
     try:
@@ -31,14 +28,15 @@ def parse_number(number):
         raise e
 
 
-data["issue_count"] = data["issue_count"].apply(parse_number)
-data["pulls_count"] = data["pulls_count"].apply(parse_number)
-data["fork_count"] = data["fork_count"].apply(parse_number)
-data["stars_count"] = data["stars_count"].apply(parse_number)
-data["branch_count"] = data["branch_count"].apply(parse_number)
-data["tags_count"] = data["tags_count"].apply(parse_number)
-data["commits_count"] = data["commits_count"].apply(parse_number)
-data["contrib_count"] = data["contrib_count"].apply(parse_number)
+def main(file="preprocessing/output/3_remove_fields.csv", numerics=["issue_count", "pulls_count", "fork_count", "stars_count", "branch_count", "tags_count", "commits_count", "contrib_count"]):
+    data = pd.read_csv(file, low_memory=False)
 
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-data.to_csv(os.path.join(OUTPUT_DIR, OUTPUT_NAME), index=False)
+    for numeric in numerics:
+        data[numeric] = data[numeric].apply(parse_number)
+
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    data.to_csv(os.path.join(OUTPUT_DIR, OUTPUT_NAME), index=False)
+
+
+if __name__ == "__main__":
+    main()

@@ -7,9 +7,6 @@ import os
 OUTPUT_DIR = "preprocessing/output"
 OUTPUT_NAME = os.path.basename(__file__).replace(".py", ".csv")
 
-data = pd.read_csv(
-    "preprocessing/output/1_remove_duplicates.csv", low_memory=False)
-
 
 def parse_lang(langs):
     try:
@@ -28,9 +25,16 @@ def parse_lang(langs):
         raise e
 
 
-data["lang"] = data["langs"].apply(parse_lang)
-data = data.drop(columns=["langs"])
-data = data.loc[data["lang"] != ""]
+def main(file="preprocessing/output/1_remove_duplicates.csv"):
+    data = pd.read_csv(file, low_memory=False)
 
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-data.to_csv(os.path.join(OUTPUT_DIR, OUTPUT_NAME), index=False)
+    data["lang"] = data["langs"].apply(parse_lang)
+    data = data.drop(columns=["langs"])
+    data = data.loc[data["lang"] != ""]
+
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    data.to_csv(os.path.join(OUTPUT_DIR, OUTPUT_NAME), index=False)
+
+
+if __name__ == "__main__":
+    main()

@@ -7,16 +7,16 @@ SMALL_SIZE = 25
 MEDIUM_SIZE = 30
 BIGGER_SIZE = 35
 
-plt.rc('font', size=SMALL_SIZE)
-plt.rc('axes', titlesize=BIGGER_SIZE)
-plt.rc('xtick', labelsize=SMALL_SIZE)
-plt.rc('ytick', labelsize=SMALL_SIZE)
-plt.rc('legend', fontsize=SMALL_SIZE)
-
-plt.style.use("seaborn-darkgrid")
-
 
 def main(variables=["commits_count", "contrib_count", "issue_count", "stars_count"]):
+    plt.rc('font', size=SMALL_SIZE)
+    plt.rc('axes', titlesize=BIGGER_SIZE)
+    plt.rc('xtick', labelsize=SMALL_SIZE)
+    plt.rc('ytick', labelsize=SMALL_SIZE)
+    plt.rc('legend', fontsize=SMALL_SIZE)
+
+    plt.style.use("seaborn-darkgrid")
+
     data = pd.read_csv("data/sample.csv")
 
     rows = ceil(sqrt(len(variables)))
